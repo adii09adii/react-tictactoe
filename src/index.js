@@ -1,12 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+///
+// src/index.jsx
+///
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// Import Board and Scoreboard views
+import { Board } from './components/board'
+import { Scoreboard } from './components/score-board'
+
+import './styles/board.css'
+import './styles/box.css'
+import './styles/buttons.css'
+
+// Create App component
+class App extends React.Component {
+  render() {
+    return (
+      <div className="app">
+        <BrowserRouter>
+          <Route exact path="/" component={Scoreboard}/>
+          <Route path="/board" component={Board}/>
+        </BrowserRouter>
+      </div>
+    )
+  }
+}
+
+// Render the App component into DOM
+ReactDOM.render(<App />, document.getElementById('root'))
