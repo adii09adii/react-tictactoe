@@ -86,10 +86,10 @@ export class Board extends React.Component {
             this.storage.update([`${winner} won`])
         } else if(!winner && isFilled) {
             // If game is drawn, create status message
-            status = 'Game drawn!'
+            status = 'Game drawn -- Its a tie!!'
 
             // Push data about the game to storage
-            this.storage.update(['Game drawn -- Its a tie!!'])
+            this.storage.update(['Game drawn'])
         } else {
             // If there is no winner and game is not drawn, ask the next player to make a move
             status = `It is ${(this.state.xIsNext ? 'x' : 'o')}'s turn.`
