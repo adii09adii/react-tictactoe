@@ -11,6 +11,12 @@ import { Box } from './board-box'
 // Import utility functions
 import * as utils from '../utils/functions'
 
+import {
+  setWinner,
+  resetState,
+  updateStateValues,
+  setNewHistory, defaultState} from './state-functions';
+
 // Create Board component
 export class Board extends React.Component {
     constructor(props) {
@@ -55,9 +61,17 @@ export class Board extends React.Component {
     this.setState({
             boxes: boxes,
             history: history,
+            stepNumber: history.length,
             xIsNext: !this.state.xIsNext
         })
     }
+
+    jumpTo(step) {
+        this.setState({
+          stepNumber: step,
+          xIsNext: (step % 2) === 0
+        });
+  }
 
     // Handle board restart - set component state to initial state
     handleBoardRestart = () => {
@@ -67,6 +81,29 @@ export class Board extends React.Component {
             xIsNext: true
         })
     }
+
+
+    // Handle board reswind moves 
+    handleBoardRewind = () => {
+        console.log("this.state.history.length"+this.state.history.length);
+        console.log("this.state.boxes"+this.state.boxes);
+        //console.log("on pop"+this.state.boxes.pop());
+
+        while(this.state.boxes.pop() == null)
+        {
+            //this.state.boxes.pop();
+            console.log("check-------------"+this.state.boxes);
+        }
+       // this.state.boxes.pop();
+        this.state.history.pop();
+
+
+        this.setState({
+            xIsNext: !this.state.xIsNext
+        })
+    }
+
+   
 
     render() {
         // Get winner (if there is any)
@@ -148,8 +185,14 @@ export class Board extends React.Component {
                         <button className="btn" onClick={this.handleBoardRestart}>Start new game</button>
 
                     </div>}
+
                     {<div className="board-footer">
                         <button className="btn" onClick={this.handleBoardRestart}>Reset</button>
+                    
+                    </div>}
+
+                    {<div className="board-footer">
+                        <button className="btn" onClick={this.handleBoardRewind}>Rewind</button>
                     
                     </div>}
                 </div>

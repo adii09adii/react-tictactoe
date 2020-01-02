@@ -9,20 +9,31 @@ import { Storage } from './../storage/storage'
 
 // Create Scoreboard component
 export class Scoreboard extends React.Component {
+
   state = {
-    scoreboard: []
+    scoreboard: [],
+    result:[]
   }
 
     // After component mounts, load any data from local storage and update component state
   async componentDidMount() {
     let storage = await new Storage().getData()
+    console.log('storage'+storage);
 
     this.setState({
       scoreboard: storage
     })
+
   }
 
+
   render() {
+
+    // Get current state of history
+        let scoreboard = this.state.scoreboard;
+        scoreboard.push(this.state.scoreboard);
+        console.log('scoreboard'+scoreboard);
+
     return (
       <div className="game">
         <h1>Recent games:</h1>
