@@ -11,15 +11,14 @@ import { Storage } from './../storage/storage'
 export class Scoreboard extends React.Component {
 
   state = {
-    scoreboard: [],
-    result:[]
+    scoreboard: []
   }
 
     // After component mounts, load any data from local storage and update component state
   async componentDidMount() {
     let storage = await new Storage().getData()
-    console.log('storage'+storage);
 
+    this.state.scoreboard.push(storage);
     this.setState({
       scoreboard: storage
     })
@@ -30,18 +29,17 @@ export class Scoreboard extends React.Component {
   render() {
 
     // Get current state of history
-        let scoreboard = this.state.scoreboard;
-        scoreboard.push(this.state.scoreboard);
-        console.log('scoreboard'+scoreboard);
 
     return (
       <div className="game">
         <h1>Recent games:</h1>
+        
+              {/* List with previous games */}
 
-                {/* List with previous games */}
         <ul>
           {this.state.scoreboard.map((leader, key) => {
             return <li key={key}>{leader}</li>
+            
           })}
         </ul>
 

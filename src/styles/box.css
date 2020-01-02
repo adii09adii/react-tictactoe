@@ -9,7 +9,11 @@
   width: calc(250px / 3);
   height: calc(250px / 3);
   font-size: 32px;
-  color: #111;
+  color: red;
   background-color: #fff;
   border: 1px solid #aaa;
+}
+
+.board__box.winner {
+  color: blue;
 }

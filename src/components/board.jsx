@@ -26,6 +26,7 @@ export class Board extends React.Component {
         this.state = {
             boxes: Array(9).fill(null),
             history: [],
+            match: [],
             xIsNext: true
         }
     }
@@ -78,23 +79,31 @@ export class Board extends React.Component {
         this.setState({
             boxes: Array(9).fill(null),
             history: [],
+            match: [],
+            xIsNext: true
+        })
+    }
+
+    // Handle board rematch - set component state to initial state
+    handleBoardRematch = () => {
+        this.setState({
+            boxes: Array(9).fill(null),
+            history: [],
             xIsNext: true
         })
     }
 
 
-    // Handle board reswind moves 
+    // Handle board rewind moves 
     handleBoardRewind = () => {
-        console.log("this.state.history.length"+this.state.history.length);
-        console.log("this.state.boxes"+this.state.boxes);
-        //console.log("on pop"+this.state.boxes.pop());
+        //console.log("this.state.history.length"+this.state.history.length);
+        //console.log("this.state.boxes"+this.state.boxes);
 
         while(this.state.boxes.pop() == null)
         {
             //this.state.boxes.pop();
-            console.log("check-------------"+this.state.boxes);
+            //console.log("check-------------"+this.state.boxes);
         }
-       // this.state.boxes.pop();
         this.state.history.pop();
 
 
@@ -118,7 +127,7 @@ export class Board extends React.Component {
         if (winner) {
             // If winner exists, create status message
             status = `Winner: ${winner}!`
-
+             this.state.match.push(status)
             // Push data about the game to storage
             this.storage.update([`${winner} won`])
         } else if(!winner && isFilled) {
@@ -180,8 +189,18 @@ export class Board extends React.Component {
                         </ul>
                     </div>
 
+                    {/* commenting for now
+                    <div className="game">
+                        <h2 className="board-heading"> Recent games:</h2> 
+
+                            <li>
+                            {winner &&  this.state.match}                           
+                            </li>
+                    </div>
+                    */}
+
                     {/* Button to start new game */}
-                    {winner && <div className="board-footer">
+                    {<div className="board-footer">
                         <button className="btn" onClick={this.handleBoardRestart}>Start new game</button>
 
                     </div>}
@@ -195,6 +214,13 @@ export class Board extends React.Component {
                         <button className="btn" onClick={this.handleBoardRewind}>Rewind</button>
                     
                     </div>}
+                    {/* commenting for now
+                    {<div className="board-footer">
+                        <button className="btn" onClick={this.handleBoardRematch}>New Match between Same players</button>
+                    
+                    </div>}
+                    */}
+
                 </div>
             </>
         )
